@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: jenkins-job
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      volumes:
+      - name: traindata
+        persistentVolumeClaim:
+          claimName: traindata
+      containers:
+      - name: trainer
+        image: anyuzhang2018/model
+        command: 
+        - python3
+        - lgbm_model.py 
+        - --mongodb ${MONGODB_URL} 
+        - --user ${MONGODB_USER} 
+        - --password ${MONGODB_PASSWORD} 
+        - --datapath /data
+        volumeMounts:
+        - name: traindata
+          mountPath: /data
+        env:
+        - name: MONGODB_URL
+          valueFrom:
+            secretKeyRef:
+              key: mongodb
+              name: db-user-pass
+        - name: MONGODB_USER
+          valueFrom:
+            secretKeyRef:
+              key: user
+              name: db-user-pass
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: db-user-pass
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: s3reader
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: s3reader
+        resources:
+          requests:
+            cpu: 1000m
+            memory: 2G
+          limits:
+            cpu: 3000m
+            memory: 8G
+
+        
+      
