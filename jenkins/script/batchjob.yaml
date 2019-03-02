@@ -14,13 +14,6 @@ spec:
       containers:
       - name: trainer
         image: anyuzhang2018/model
-        command: 
-        - python3
-        - lgbm_model.py 
-        - --mongodb ${MONGODB_URL} 
-        - --user ${MONGODB_USER} 
-        - --password ${MONGODB_PASSWORD} 
-        - --datapath /data
         volumeMounts:
         - name: traindata
           mountPath: /data
@@ -56,7 +49,7 @@ spec:
             memory: 2G
           limits:
             cpu: 3000m
-            memory: 8G
+            memory: 14G
 
         
       
