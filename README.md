@@ -12,3 +12,7 @@ https://drive.google.com/open?id=1HlnlsjRgCrWFRWUZP828Wjwmx03Cp0yU
 ![Architecture](archi.png)
 
 
+## Jenkinsfile to Dynamic Allocate K8s Training Pod
+
+
+
