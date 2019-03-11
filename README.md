@@ -7,6 +7,8 @@ This is a pipeline of baking Jenkins to K8s to dynamic allocate training pods fo
 https://drive.google.com/open?id=1HlnlsjRgCrWFRWUZP828Wjwmx03Cp0yU
 
 
-##  What happened there?
+##  Architecture
+
+![Architecture](archi.png)
 
 
